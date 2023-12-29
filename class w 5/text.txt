@@ -1,0 +1,3 @@
+câu 1 chèn code c trong hàm f() và main()
+để đếm bước so sánh gán của hàm f() sau
+câu 2 đến số phép so sánh và hoán vị theo từng dòng và tổng kết của thuật toán sau (n là soosphaanf tử của mảng a)
