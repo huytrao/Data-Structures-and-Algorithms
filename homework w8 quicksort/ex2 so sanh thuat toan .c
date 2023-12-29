@@ -67,51 +67,47 @@ void insertionSort(int arr[], int n, int *insertion_step) {
     }
 }
 
-// Hàm phân hoạch
-int partition(int arr[], int left, int right, int *shiftleft, int *shiftright, int *swaps) {
+int partition(int arr[], int left, int right, int *step) {
+    int shift_right = 0;
+    int shift_left = 0;
+    int swaps = 0;
     int pivot = right;
     right--;
 
-    while (1) {
+    while (left < right) {
         while (arr[left] <= arr[pivot] && left < pivot) {
-            (*shiftleft)++;
+            shift_left++;
             left++;
         }
 
         while (arr[right] >= arr[pivot] && right > left) {
-            (*shiftright)++;
+            shift_right++;
             right--;
         }
 
-        if (left >= right) {
-            break;
-        } else {
-            (*swaps)++;
+        if (left < right) {
+            swaps++;
             swap(&arr[left], &arr[right]);
         }
     }
 
-    (*swaps)++;
+    swaps++;
     swap(&arr[left], &arr[pivot]);
-
+    *step = swaps + shift_right + shift_left;
     return left;
 }
 
 // Hàm quicksort
-int quicksort(int arr[], int left, int right, int *steps) {
+void quicksort(int arr[], int left, int right, int *steps) {
     if (left < right) {
-        int shiftleft = 0;
-        int shiftright = 0;
-        int swaps = 0;
-
-        int pivotIndex = partition(arr, left, right, &shiftleft, &shiftright, &swaps);
-        (*steps) = shiftleft + shiftright + swaps;
+        int step =0;
+        int pivotIndex = partition(arr, left, right, &step);
+        (*steps) += step;
 
         quicksort(arr, left, pivotIndex - 1, steps);
         quicksort(arr, pivotIndex + 1, right, steps);
     }
 }
-
 void Copy_arr(int arr[], int arr_cp[], int n) {
     for (int i = 0; i < n; i++) {
         arr_cp[i] = arr[i];
@@ -145,8 +141,9 @@ int main() {
         int in_step = 0;
         insertionSort(arr_cp, n, &in_step);
         Copy_arr(arr, arr_cp, n);
-        int q_steps = 0;
-        quicksort(arr_cp, 0, n - 1, &q_steps);
+        int *q_steps;
+        (*q_steps) =0;
+        quicksort(arr_cp, 0, n - 1, q_steps);
         int bub_step = bubbleSort(arr, n);
 
         printf("\n");
@@ -154,7 +151,7 @@ int main() {
         printf("\nBubble Sort step: %d", bub_step);
         printf("\nSelection Sort step: %d", se_step);
         printf("\nInsertion Sort step: %d", in_step);
-        printf("\nQuick Sort step: %d\n", q_steps);
+        printf("\nQuick Sort step: %d\n", (*q_steps));
     }
 
     return 0;
