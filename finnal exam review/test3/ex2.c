@@ -18,9 +18,9 @@ int binarySearchRecursive(int arr[], int left, int right, int target) {
 }
 
 // Phân tích hàm đệ quy theo quy trình bốn bước:
-// 1. Xác định điểm dừng: Khi left > right, 
+// 1. Xác định điểm dừng: Khi left > right (1), khi arr[mid] == val (2)
 //   
-//2. Với  tức là không còn phần tử để xem xét.  Trong trường hợp này, trả về -1 để thể hiện không tìm thấy phần tử trong mảng.
+//2. với (1)  Trong trường hợp này, trả về -1 để thể hiện không tìm thấy phần tử trong mảng, vói (2) trả về giá trị mid.
 //3. với left == right 
 //    Điều này áp dụng trong hai trường hợp:
 //    - Nếu arr[mid] == target, trả về mid để thể hiện phần tử được tìm thấy.
