@@ -29,8 +29,9 @@ int bubbleSort(int arr[], int n) {
 // Hàm chèn tính số bước
 void selectionSort(int arr[], int n, int *selection_step) {
     (*selection_step) = 0;
-
+    // khai báo biến
     int i, j, min_idx;
+    // cho chạy vòng lặp
     for (i = 0; i < n - 1; i++) {
         min_idx = i;
         for (j = i + 1; j < n; j++) {
@@ -38,42 +39,47 @@ void selectionSort(int arr[], int n, int *selection_step) {
             if (arr[j] < arr[min_idx])
                 min_idx = j;
         }
+        // so sánh giá trị 
         if (min_idx != i) {
             swap(&arr[min_idx], &arr[i]);
             (*selection_step)++;
         }
     }
 }
-
+// thuật toán insertion sort
 void insertionSort(int arr[], int n, int *insertion_step) {
     int comps = 0;
     int shift = 0;
     (*insertion_step) = 0;
+    // chạy vòng lặp 
     for (int i = 1; i < n; i++) {
         int key = arr[i];
         int j = i - 1;
         (*insertion_step)++;
+        // chạy vòng while kvaf kiểm tra
         while (j >= 0 && key < arr[j]) {
             comps++;
             shift++;
             arr[j + 1] = arr[j];
             j--;
         }
+        // xét trường hợp vẫn còn  phần tử thì ococng j thêm một lần so sánh
         if (j != 0) {
             comps++;
         }
+        // tiến hành in seert key
         arr[j + 1] = key;
         (*insertion_step) = comps + shift;
     }
 }
-
+// hàm phân mảnh cho quicksort
 int partition(int arr[], int left, int right, int *step) {
     int shift_right = 0;
     int shift_left = 0;
     int swaps = 0;
     int pivot = right;
     right--;
-
+    // chạy hàm whwile kiểm ra điều kiền
     while (left < right) {
         while (arr[left] <= arr[pivot] && left < pivot) {
             shift_left++;
@@ -101,6 +107,7 @@ int partition(int arr[], int left, int right, int *step) {
 void quicksort(int arr[], int left, int right, int *steps) {
     if (left < right) {
         int step =0;
+        // thực hiện đặt pivot và thực hiện quick sort
         int pivotIndex = partition(arr, left, right, &step);
         (*steps) += step;
 
@@ -108,19 +115,21 @@ void quicksort(int arr[], int left, int right, int *steps) {
         quicksort(arr, pivotIndex + 1, right, steps);
     }
 }
+// tiến hành copy mảng vào 
 void Copy_arr(int arr[], int arr_cp[], int n) {
     for (int i = 0; i < n; i++) {
         arr_cp[i] = arr[i];
     }
 }
 
+// hàm nhập mảng
 void input_arr(int arr[], int *n) {
     scanf("%d", n);
     for (int i = 0; i < *n; i++) {
         scanf("%d", &arr[i]);
     }
 }
-
+// hàm in mảng
 void print_arr(int arr[], int n) {
     for (int i = 0; i < n; i++) {
         printf("%d ", arr[i]);
@@ -128,8 +137,10 @@ void print_arr(int arr[], int n) {
     printf("\n");
 }
 
+
 int main() {
     for (int i = 0; i < 4; i++) {
+        // thực thi mảng
         int arr[100];
         int arr_cp[100];
         int n;
